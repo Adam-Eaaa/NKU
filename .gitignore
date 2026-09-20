@@ -1,4 +1,5 @@
 *.exec
 *.exe
+*.zip
 .vscode/*
 .DS_Store
