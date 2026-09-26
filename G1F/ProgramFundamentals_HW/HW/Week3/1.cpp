@@ -21,7 +21,8 @@ inline int read( ) {
     return (symb? res : -res);
 }
 
-void write(int buffer) {
+template <typename _Type>
+void write(_Type buffer) {
     if (buffer < 0) {
         putchar('-');
         buffer = -buffer;
@@ -32,7 +33,8 @@ void write(int buffer) {
     putchar(buffer % 10 + '0');
 }
 
-int mult(int base, int idx) {
+template <class _T>
+_T mult(_T base, int idx) {
     int result;
     if (idx < 0) {
         base = -base;
