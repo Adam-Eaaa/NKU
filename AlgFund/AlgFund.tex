@@ -96,13 +96,13 @@ $$
   这和裴蜀定理很相似, 可以借以理解这个定理. 用数论的语言, 我要证明的就是对任意素数 $p$ 和与之互素的数 $q$, 不定方程 $px+qy=1$ 有解. 这就是裴蜀定理的特例不是吗 :)
 \end{quote}
 
-对任意的 $q(x)\in K \setminus \overline{p(x)}$, 我们记 $\overline{q(x)}=q(x)+\overline{p(x)}=\{q(x)+k\cdot p(x)\mid k\in F\}$ (以下保持这种写法):
+对任意的 $q(x)\in K \setminus \overline{p(x)}$, 我们记 $\overline{q(x)}=q(x)+\overline{p(x)}=\{q(x)+k\cdot p(x)\mid k\in F[x]\}$ (以下保持这种写法):
 
 我们在理想 $\overline{p(x)}$ 中添加一个 $q(x)$, 然后生成一个新理想 $I$ (即 $\forall\alpha\in I, \forall\beta\in K$, 有 $\alpha\cdot\beta\in I$). 我们证明 $I=K$, 先证 $I$ 由单个元素生成.
 
 取 $I$ 中次数最小的非零多项式 $d(x)$.
 \begin{itemize}
-  \item[1)] $\overline{d(x)}\subset I$: 任取 $e(x)\in\overline{d(x)}$, 设 $e(x)=m\cdot d(x)$, 显然 $m\in F(x) \Rightarrow e(x)\in I$.
+  \item[1)] $\overline{d(x)}\subset I$: 任取 $e(x)\in\overline{d(x)}$, 设 $e(x)=m\cdot d(x)$, 显然 $m\in F[x] \Rightarrow e(x)\in I$.
   \item[2)] $I\subset\overline{d(x)}$: 任取 $e(x)\in I$, 对 $d(x)$ 做带余除法: $e(x)=q(x)\cdot d(x)+r(x)$ ($\deg r(x)<\deg d(x)$), 则 $r(x)=e(x)-q(x)\cdot d(x)\in I$. 而 $\deg d(x)$ 最小, 故 $r(x)\equiv 0$, $e(x)\in\overline{d(x)}$.
 \end{itemize}
 
@@ -114,7 +114,7 @@ $$
   \end{itemize}
 \end{quote}
 
-$I$ 是 $p(x)$ 生成的理想, 而 $q(x)\notin\overline{p(x)}$, 故 $\overline{p(x)}\subsetneqq I\subset K$, 而由于 $p(x)$ 不可约, $I=K$. 因此 $\bar{1}\in I$, 即对 $q(x)$ 而言, $p(x)\cdot\alpha+q(x)\cdot\beta=1$ 方程是有解的, 逆元存在.
+$I$ 是 $p(x), q(x)$ 生成的理想, 故 $\overline{p(x)}\subsetneqq I\subset K$, 而由于 $p(x)$ 不可约, $I=K$. 因此 $\bar{1}\in I$, 即对 $q(x)$ 而言, $p(x)\cdot\alpha+q(x)\cdot\beta=1$ 方程是有解的, 逆元存在.
 
 好诶, $K$ 是域! 可是 $K$ 不是 $F$ 的扩域, 怎么办呢? 两个群比较时, 群的具体元素其实不太重要, 更重要的是两个群的关系——同态与同构. 构造映射 $\phi:F\rightarrow K, a\mapsto \overline{a(x)}$ 为单射, 则 $\phi{F}$ 作为 $F$ 的同构 `代表' $F$ `宣告'了有一个扩域满足关系. 
 
@@ -148,18 +148,18 @@ $g(x)$ 关于它的根对称, 因而各系数关于全部的 $\alpha$ 有对称�
 
 依归纳假设, $g(x)$ 的全部根 $\pi(\alpha_i, \alpha_j)=m\alpha_i\alpha_j+n(\alpha_i+\alpha_j)$ 均为复数.
 
-设函数时, 我们没有指定 $m, n$ 的具体值. 这里, 我们令 $m=1$, 而选取不同的 $n$: $n_1, n_2$. 两组 $\pi(\alpha_i, \alpha_j)$ 相减, 我们得到 $\alpha_i+\alpha_j$, 再代入, 我们可以得到关于 $\alpha_i, \alpha_j$ 的复系数二次方程, 由求根公式它们显然是复数.
+设 $\pi$ 时, 我们没有指定 $m, n$ 的具体值. 这里, 我们令 $m=1$. 由于有无穷多实数, 一定有不同的 $n$: $n_1, n_2$, 它们都对应 $(i, j)$ 这个数对. 两组 $\pi(\alpha_i, \alpha_j)$ 相减, 我们得到 $\alpha_i+\alpha_j$, 再代入, 我们可以得到关于 $\alpha_i, \alpha_j$ 的复系数二次方程, 由求根公式它们显然是复数.
 
 因此命题对 $k$ 依然成立.
 
 \section{证明收束: 由实数到复数的神之一手}
 此时我们依然在讨论实系数多项式. 那复系数呢?
-对 $f(x)\in\mathbb{C}[x]$, 我们不妨考虑 $F(x)=f(x)\overline{f(x)}$. (以下上横线均表示共轭)
+对 $f(x)\in\mathbb{C}[x]$, 我们不妨考虑 $F(x)=f(x)\overline{f(\bar{x})}$. (以下上横线均表示共轭)
 
-则 $\overline{F(x)}=\overline{f(x)}f(x)=F(x)$,
+则 $\overline{F(x)}=\overline{f(\bar{x})}f(x)=F(x)$,
 因此 $F(x)\in\mathbb{R}[x]$.
 
-$F(x)$ 的根 $x_0$ 或是 $f(x)$ 的根, 或是 $\overline{f(x)}$ 的根, 后者则 $\overline{x_0}$ 是 $f(x)$ 的根. 命题得证.
+$F(x)$ 有根 $x_0$: 要么 $f(x_0)=0$, 即得证, 要么 $\overline{f(\bar{x_0})}=0$, 则 $\bar{x_0}$ 是一个根.
 
 \bibliographystyle{plain}
 \bibliography{refs.bib}
