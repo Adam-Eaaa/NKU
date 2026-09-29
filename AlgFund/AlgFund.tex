@@ -1,0 +1,166 @@
+% !TeX program = xelatex
+\documentclass[UTF8,a4paper,12pt]{ctexart}
+
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{cite}
+\usepackage{url}
+\usepackage{amssymb, amsmath}
+
+\makeatletter
+\providecommand{\subtitle}[1]{\gdef\@subtitle{#1}}
+\providecommand{\affiliation}[1]{\gdef\@affiliation{#1}}
+
+% 自定义标题块：标题、副标题、作者和单位连续排列，不插入正文或分页。
+\renewcommand{\maketitle}{%
+  \begin{center}
+    {\LARGE\bfseries \@title\par}
+    \vspace{0.55em}
+    {\large \@subtitle\par}
+  \end{center}
+}
+\makeatother
+
+\title{代数基本定理证明}
+\subtitle{——啰嗦版本}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  代数基本定理 (Fundamental Theorem of Algebra) 在代数乃至整个数学都发挥着基础作用。据说\cite{bdbaike1}到目前为止，这一定理有多达200种证明。作为在数学中占举足轻重地位的定理，我们在初中学习二次方程时就已经得以一窥定理的一角。尽管如此，直到大学，我们才第一次了解这一定理的证明。南开大学数学教学丛书《高等代数与解析几何》一册给出了这一定理的代数证明\cite{nkalg}，然而其中提及的相当多抽象代数术语书中并没有讲解。本文中，笔者以正在学习这本书的学生口吻，将这一证明详细展开，并对部分应用的定理加以证明。
+\end{abstract}
+
+\section{定理内容}
+
+代数基本定理表述为: 任何复系数一元 $n$ 次多项式 ($n\geq1$) 在 $\mathbb{C}$ 上有至少一根.
+
+\begin{quote}
+  有时这个定理表述为: 任何一个非零的一元 $n$ 次复系数多项式, 都正好有 $n$ 个复数根. 这似乎是一个更强的命题, 但实际上是“至少有一个根”的直接结果, 因为有一个根 $x_a$, 只要不断把多项式除以 $(x-x_a)$, 即可从有一个根推出有 $n$ 个根.
+\end{quote}
+
+在这里, 我们先证明多项式系数为实数的情况, 随后再拓展为复数. 因此, 我们先证明: 多项式 $f(x)\in\mathbb{R}[x]$ ($\deg f(x)\geq 1$) 在 $\mathbb{C}$上有至少一根.
+
+\section{探索证明方法: 从特例到一般}
+这个定理看起来无从下手, 但有一些特例, 比如一次、二次乃至更高次函数求根公式, 但我们都听说过 "五次及以上方程没有求根公式", 这条路似乎是断头的.
+
+还有一种特例, 高中我们一定学习过零点存在性定理 (介值定理), 由此我们知道奇数次多项式必然有一实零点. 这里不展开证明.
+这似乎比上面的特例更广泛, 毕竟所有正整数反复除以 $2$, 最终总会变成一个奇数. 这也在暗示我们, 通过乘 $2$ 的数学归纳法也许可以证明.
+
+因此我们的证明思路便清晰了: 我们设 $2^k\mid\mid\deg f(x)$, 归纳证明 $k$ 对所有自然数均成立.
+
+归纳奠基: $k=0$ 时即奇数次多项式, 上面已经说明成立.
+
+归纳假设: $k$ 取 $0, 1, \cdots, k-1$ 时, 都有定理成立.
+
+我们想要探讨 $f(x)$ 的根, 可是现在连它们存不存在都不知道, 不了解它们什么特点, 似乎没办法探讨.
+
+现在我们放下这些根属于复数的执念, 能否给出一个超级大的集合, 让根从隐形显现出来, 让我们至少一窥它们的性质呢?
+
+欸, 还真有.
+
+\section{根的显形: Kronecker 定理}
+
+设 $F$ 是一个域, 多项式 $f(x)\in F[x]$ 满足 $\deg f(x)\geq 1$. Kronecker 定理告诉我们: 存在 $F$ 的扩域 $K$, 使得 $f(x)$ 在 $K$ 中有根.
+
+\noindent\textbf{证明.}
+
+书\cite{nkalg}中, \S 1.5 因式分解一节证明了因式分解唯一性定理, 不再赘述.
+
+将 $f(x)$ 在 $F[x]$ 上作因式分解, 取其中一个不可约因式 $p(x)$. 
+
+设 $p(x)$ 生成的主理想 (即全部 $p(x)$ 的倍数构成的集合)
+$$
+\overline{p(x)}=\{g(x)\cdot p(x)\mid g(x)\in F[x]\},
+$$
+
+我们将所有多项式按模 $p(x)$ 的余数分成若干等价类, 再组成集合 $K$, 用术语说, 得到商环
+$$
+K=F[x]/\overline{p(x)},
+$$
+
+注意 $K$ 是集合的集合.
+
+看不懂? 我们把 $F[x]$ 想象成整数, $p$ 是其中的一个素数, 那么等价类就是 $S_r=\{x\mid x\equiv r\pmod{p}\}$, 这些等价类显然不相交, 而 $K$ 就是所有等价类组成的集合.
+
+还有一种理解, 我们将语境设为 `模 $p(x)$ 意义下', 而 $K$ 就是完全剩余系.
+
+学过抽象代数的小伙伴 (真的有吗……) 一定意识到 $K$ 是域了.
+
+我们先约定一下等价类之间的运算: 既然等价, 取代表元并运算, 再找到包含结果的等价类, 这一定和取的代表元无关. 集合运算的结果就是这个等价类, 可以发现, 这也符合 `模 $p(x)$ 意义下' 这种理解.
+
+我们在这里只证明 $K$ 乘法有逆元. 当然, 很显然, 乘法单位元就是 $1$ 的等价类 $\bar{1}=\{1+k\cdot p(x)\mid k\in F\}$.
+
+\begin{quote}
+  这和裴蜀定理很相似, 可以借以理解这个定理. 用数论的语言, 我要证明的就是对任意素数 $p$ 和与之互素的数 $q$, 不定方程 $px+qy=1$ 有解. 这就是裴蜀定理的特例不是吗 :)
+\end{quote}
+
+对任意的 $q(x)\in K \setminus \overline{p(x)}$, 我们记 $\overline{q(x)}=q(x)+\overline{p(x)}=\{q(x)+k\cdot p(x)\mid k\in F\}$ (以下保持这种写法):
+
+我们在理想 $\overline{p(x)}$ 中添加一个 $q(x)$, 然后生成一个新理想 $I$ (即 $\forall\alpha\in I, \forall\beta\in K$, 有 $\alpha\cdot\beta\in I$). 我们证明 $I=K$, 先证 $I$ 由单个元素生成.
+
+取 $I$ 中次数最小的非零多项式 $d(x)$.
+\begin{itemize}
+  \item[1)] $\overline{d(x)}\subset I$: 任取 $e(x)\in\overline{d(x)}$, 设 $e(x)=m\cdot d(x)$, 显然 $m\in F(x) \Rightarrow e(x)\in I$.
+  \item[2)] $I\subset\overline{d(x)}$: 任取 $e(x)\in I$, 对 $d(x)$ 做带余除法: $e(x)=q(x)\cdot d(x)+r(x)$ ($\deg r(x)<\deg d(x)$), 则 $r(x)=e(x)-q(x)\cdot d(x)\in I$. 而 $\deg d(x)$ 最小, 故 $r(x)\equiv 0$, $e(x)\in\overline{d(x)}$.
+\end{itemize}
+
+\begin{quote}
+  翻译成数论: $S\neq\{0\}$ 时 $S$ 就是某个元素全部倍数构成的集合. 取 $m$ 为 $S$ 最小正整数.
+  \begin{itemize}
+    \item[1)] 由定义, $m$ 的倍数全在 $S$ 中.
+    \item[2)] $\forall x\in S$, 设 $x\div m=q\cdots r$ ($0\leq r\leq m-1$), 即 $r=x-mq\in S$, 而 $m$ 是最小正整数, $r=0$, $x$ 是 $m$ 的倍数.
+  \end{itemize}
+\end{quote}
+
+$I$ 是 $p(x)$ 生成的理想, 而 $q(x)\notin\overline{p(x)}$, 故 $\overline{p(x)}\subsetneqq I\subset K$, 而由于 $p(x)$ 不可约, $I=K$. 因此 $\bar{1}\in I$, 即对 $q(x)$ 而言, $p(x)\cdot\alpha+q(x)\cdot\beta=1$ 方程是有解的, 逆元存在.
+
+好诶, $K$ 是域! 可是 $K$ 不是 $F$ 的扩域, 怎么办呢? 两个群比较时, 群的具体元素其实不太重要, 更重要的是两个群的关系——同态与同构. 构造映射 $\phi:F\rightarrow K, a\mapsto \overline{a(x)}$ 为单射, 则 $\phi{F}$ 作为 $F$ 的同构 `代表' $F$ `宣告'了有一个扩域满足关系. 
+
+既然 $K$ 是域, 我们还差一步根的存在性, 怎么搞呢? 我们知道 $p(x)\equiv 0$, 那在模 $p(x)$ 意义下自变量 $x$ 的等价类 $x+\overline{p(x)}$ 必然满足 $p(x)\equiv 0$. 或者, 将二项式展开, 注意所有含 $\overline{p(x)}$ 因子的项都会因其是理想被吸收为 $\overline{p(x)}$ 本身. 因此 $x+\overline{p(x)}$ 是 $K$ 这个域里 $p(x)$ 的一个根.
+
+结合二者, 我们便可以说明: 存在 $F$ 的扩域, 包括了 $f(x)$ 的至少一根.
+
+\section{域的收缩: 归纳证明}
+
+讲了这么多, 我们终于知道这世界上有个域, 它的里面有我要的 $n$ 个根 $\alpha_1, \alpha_2, \alpha_3, \cdots, \alpha_n$. 可是这些根不一定是复数, 怎么办呢?
+
+归纳归纳, 归纳假设还没有被我们用到. 我们希望根据这些根, 构造一个 $2$ 的阶数比原多项式低的多项式, 这样新的多项式的根为我们所知, 而又可以推出原多项式的根.
+
+另一方面, 我们还希望这个新多项式的系数是实数, 而我们对新多项式的了解限于根. 根和系数的关系? 相信你也想到了: Vieta 定理. 为此, 我们希望保持根的对称性. 除以二, 根对称, 我们想到了任取两个带来的 $\binom n2=\cfrac{n(n-1)}2$. 它的阶正好降了 $1$.
+
+所以我们设新多项式 $g(x)$ 的根为 $\pi(\alpha_i, \alpha_j)$, $1\leq i<j\leq n$. 其中 $\pi$ 关于二元对称.
+
+设
+$$
+g(x)=\prod_{1\leq i<j\leq n}(x-\pi(\alpha_i, \alpha_j)).
+$$
+
+那 $\pi$ 取什么呢? 要对称式, 肯定是积和和的线性组合最方便.
+
+任取 $m, n\in\mathbb{R}$, 设
+$$
+\pi(\alpha_i, \alpha_j)=m\alpha_i\alpha_j+n(\alpha_i+\alpha_j).
+$$
+
+$g(x)$ 关于它的根对称, 因而各系数关于全部的 $\alpha$ 有对称性. 依 Vieta 定理, $g(x)$ 各系数是 $f(x)$ 全部系数组成的对称多项式, $f(x)$ 为实系数多项式, 因此 $g(x)$ 也是.
+
+依归纳假设, $g(x)$ 的全部根 $\pi(\alpha_i, \alpha_j)=m\alpha_i\alpha_j+n(\alpha_i+\alpha_j)$ 均为复数.
+
+设函数时, 我们没有指定 $m, n$ 的具体值. 这里, 我们令 $m=1$, 而选取不同的 $n$: $n_1, n_2$. 两组 $\pi(\alpha_i, \alpha_j)$ 相减, 我们得到 $\alpha_i+\alpha_j$, 再代入, 我们可以得到关于 $\alpha_i, \alpha_j$ 的复系数二次方程, 由求根公式它们显然是复数.
+
+因此命题对 $k$ 依然成立.
+
+\section{证明收束: 由实数到复数的神之一手}
+此时我们依然在讨论实系数多项式. 那复系数呢?
+对 $f(x)\in\mathbb{C}[x]$, 我们不妨考虑 $F(x)=f(x)\overline{f(x)}$. (以下上横线均表示共轭)
+
+则 $\overline{F(x)}=\overline{f(x)}f(x)=F(x)$,
+因此 $F(x)\in\mathbb{R}[x]$.
+
+$F(x)$ 的根 $x_0$ 或是 $f(x)$ 的根, 或是 $\overline{f(x)}$ 的根, 后者则 $\overline{x_0}$ 是 $f(x)$ 的根. 命题得证.
+
+\bibliographystyle{plain}
+\bibliography{refs.bib}
+\end{document}

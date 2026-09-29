@@ -5,3 +5,11 @@
 .DS_Store
 *.docx
 *.zip
+*.aux
+*latexmk
+*.fls
+*.log
+*.synctex*
+*.xdv
+*.bbl
+*.blg
